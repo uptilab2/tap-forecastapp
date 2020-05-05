@@ -3,9 +3,9 @@ Tap for forecast.app
 
 This tap:
 
-- Pulls raw data from [FIXME](http://forecast.app)
+- Pulls raw data from [Forecast.app](http://forecast.app)
 - Extracts the following resources:
-  - [FIXME](http://forcast.app)
+  - [Forecast.app](http://forcast.app)
 - Outputs the schema for each resource
 - Incrementally pulls data based on the input state
 
