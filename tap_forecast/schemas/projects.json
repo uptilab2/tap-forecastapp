@@ -1,0 +1,93 @@
+{
+    "type": ["null", "object"],
+    "additionalProperties": false,
+    "properties": {
+      	"id": {
+            "type": ["null", "integer"]
+		},
+      	"company_project_id": {
+            "type": ["null", "integer"]
+		},
+  		"name": {
+            "type": ["null", "string"]
+		},
+		"connected_project": {
+            "type": ["null", "integer"]
+		},
+		"stage": {
+            "type": ["null", "string"]
+		},
+		"status_color": {
+            "type": ["null", "string"]
+		},
+		"status_description": {
+            "type": ["null", "string"]
+		},
+		"description": {
+            "type": ["null", "string"]
+		},
+		"color": {
+            "type": ["null", "string"]
+		},
+		"estimation_units": {
+            "type": ["null", "string"]
+		},
+		"minutes_per_estimation_point": {
+            "type": ["null", "integer"]
+		},
+		"budget": {
+            "type": ["null", "number"]
+		},
+		"billable": {
+            "type": ["null", "integer"]
+		},
+		"budget_type": {
+            "type": ["null", "string"]
+		},
+		"use_sprints": {
+            "type": ["null", "boolean"]
+		},
+		"sprint_length": {
+            "type": ["null", "integer"]
+		},
+		"start_date": {
+            "type": ["null", "string"],
+            "format": "date-time"
+		},
+		"end_date": {
+            "type": ["null", "string"],
+            "format": "date-time"
+		},
+		"task_levels": {
+            "type": ["null", "integer"]
+		},
+		"client": {
+            "type": ["null", "integer"]
+		},
+		"rate_card": {
+            "type": ["null", "integer"]
+		},
+		"remaining_auto_calculated": {
+            "type": ["null", "boolean"]
+		},
+		"use_project_allocations": {
+            "type": ["null", "boolean"]
+		},
+		
+		"created_by": {
+            "type": ["null", "integer"]
+		},
+		"updated_by": {
+            "type": ["null", "integer"]
+		},
+		"created_at": {
+            "type": ["null", "string"],
+            "format": "date-time"
+		},
+		"updated_at": {
+            "type": ["null", "string"],
+            "format": "date-time"
+		}
+		
+    }
+}

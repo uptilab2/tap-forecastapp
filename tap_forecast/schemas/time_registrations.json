@@ -1,0 +1,49 @@
+{
+    "type": ["null", "object"],
+    "additionalProperties": false,
+    "properties": {
+      	"id": {
+            "type": ["null", "integer"]
+		},
+      	"person": {
+            "type": ["null", "integer"]
+		},
+  		"project": {
+            "type": ["null", "integer"]
+		},
+		"card": {
+            "type": ["null", "integer"]
+		},
+		"task": {
+            "type": ["null", "integer"]
+		},
+		"non_project_time": {
+            "type": ["null", "integer"]
+		},
+		"time_registered": {
+            "type": ["null", "integer"]
+		},
+		"date": {
+            "type": ["null", "string"],
+            "format": "date-time"
+		},
+		"notes": {
+            "type": ["null", "string"]
+		},
+		"created_by": {
+            "type": ["null", "integer"]
+		},
+		"updated_by": {
+            "type": ["null", "integer"]
+		},
+		"created_at": {
+            "type": ["null", "string"],
+            "format": "date-time"
+		},
+		"updated_at": {
+            "type": ["null", "string"],
+            "format": "date-time"
+		}
+		
+    }
+}

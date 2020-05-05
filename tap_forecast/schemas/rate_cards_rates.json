@@ -1,0 +1,31 @@
+{
+    "type": ["null", "object"],
+    "additionalProperties": false,
+    "properties": {
+		"role": {
+            "type": ["null", "integer"]
+		},
+		"rate": {
+            "type": ["null", "number"]
+		},
+		"rate_card_id": {
+            "type": ["null", "integer"]
+		},
+		
+		"created_by": {
+            "type": ["null", "integer"]
+		},
+		"updated_by": {
+            "type": ["null", "integer"]
+		},
+		"created_at": {
+            "type": ["null", "string"],
+            "format": "date-time"
+		},
+		"updated_at": {
+            "type": ["null", "string"],
+            "format": "date-time"
+		}
+		
+    }
+}

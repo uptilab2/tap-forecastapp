@@ -1,0 +1,95 @@
+{
+    "type": ["null", "object"],
+    "additionalProperties": false,
+    "properties": {
+      	"id": {
+            "type": ["null", "integer"]
+		},
+      	"company_task_id": {
+            "type": ["null", "integer"]
+		},
+  		"title": {
+            "type": ["null", "string"]
+		},
+		"description": {
+            "type": ["null", "string"]
+		},
+		"project_id": {
+            "type": ["null", "integer"]
+		},
+		"role": {
+            "type": ["null", "integer"]
+		},
+		"low_estimate": {
+            "type": ["null", "number"]
+		},
+		"high_estimate": {
+            "type": ["null", "number"]
+		},
+		"forecast": {
+            "type": ["null", "number"]
+		},
+		"remainaing": {
+            "type": ["null", "number"]
+		},
+		"approved": {
+            "type": ["null", "boolean"]
+		},
+		"start_date": {
+            "type": ["null", "string"],
+            "format": "date-time"
+		},
+		"end_date": {
+            "type": ["null", "string"],
+            "format": "date-time"
+		},
+		"bug": {
+            "type": ["null", "boolean"]
+		},
+		"un_billable": {
+            "type": ["null", "boolean"]
+		},
+		"blocked": {
+            "type": ["null", "boolean"]
+		},
+		"sprint": {
+            "type": ["null", "integer"]
+		},
+		"workflow_column": {
+            "type": ["null", "integer"]
+		},
+		"milestone": {
+            "type": ["null", "integer"]
+		},
+		"owner_id": {
+            "type": ["null", "integer"]
+		},
+		"assigned_persons": {
+            "type": ["null", "array"],
+            "items": {
+            	"type": ["null", "integer"]
+            }
+		},
+		"labels": {
+            "type": ["null", "array"],
+            "items": {
+            	"type": ["null", "integer"]
+            }
+		},
+		"created_by": {
+            "type": ["null", "integer"]
+		},
+		"updated_by": {
+            "type": ["null", "integer"]
+		},
+		"created_at": {
+            "type": ["null", "string"],
+            "format": "date-time"
+		},
+		"updated_at": {
+            "type": ["null", "string"],
+            "format": "date-time"
+		}
+		
+    }
+}

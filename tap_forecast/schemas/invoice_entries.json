@@ -1,0 +1,44 @@
+{
+    "items": {
+    	"properties": {
+			"id": {
+				"type":["null","integer"]
+			},
+			"invoice_id": {
+				"type":["null","integer"]
+			},
+			"name": {
+				"type":["null","string"]
+			},
+			"quantity": {
+				"type":["null","integer"]
+			},
+			"unit_price": {
+				"type":["null","number"]
+			},
+			"discount": {
+				"type":["null","number"]
+			},
+			"tax": {
+				"type":["null","number"]
+			},
+			"description": {
+				"type":["null","string"]
+			},
+			"created_by": {
+				"type": ["null", "integer"]
+			},
+			"updated_by": {
+				"type": ["null", "integer"]
+			},
+			"created_at": {
+				"type": ["null", "string"],
+				"format": "date-time"
+			},
+			"updated_at": {
+				"type": ["null", "string"],
+				"format": "date-time"
+			}
+		}
+    }
+}

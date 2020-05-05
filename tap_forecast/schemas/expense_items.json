@@ -1,0 +1,55 @@
+{
+    "type": ["null", "object"],
+    "additionalProperties": false,
+    "properties": {
+      	"id": {
+            "type": ["null", "integer"]
+		},
+  		"name": {
+            "type": ["null", "string"]
+		},
+		"project_id": {
+            "type": ["null", "integer"]
+		},
+		"expense_date": {
+            "type": ["null", "string"],
+            "format": "date-time"
+		},
+		"cost": {
+            "type": ["null", "number"]
+		},
+		"price": {
+            "type": ["null", "number"]
+		},
+		"quantity": {
+            "type": ["null", "number"]
+		},
+		"approved": {
+            "type": ["null", "boolean"]
+		},
+		"billable": {
+            "type": ["null", "boolean"]
+		},
+		"notes": {
+            "type": ["null", "string"]
+		},
+		"person_id": {
+            "type": ["null", "integer"]
+		},
+		"created_by": {
+            "type": ["null", "integer"]
+		},
+		"updated_by": {
+            "type": ["null", "integer"]
+		},
+		"created_at": {
+            "type": ["null", "string"],
+            "format": "date-time"
+		},
+		"updated_at": {
+            "type": ["null", "string"],
+            "format": "date-time"
+		}
+		
+    }
+}

@@ -1,0 +1,138 @@
+{
+    "type": ["null", "object"],
+    "additionalProperties": false,
+    "properties": {
+      	"id": {
+            "type": ["null", "integer"]
+		},
+  		"company_invoice_id": {
+            "type": ["null", "integer"]
+		},
+		"project_id": {
+            "type": ["null", "integer"]
+		},
+		"name": {
+            "type": ["null", "string"]
+		},
+		"invoice_reference": {
+            "type": ["null", "string"]
+		},
+		"invoice_type": {
+            "type": ["null", "string"]
+		},
+		"created_at": {
+            "type": ["null", "string"],
+            "format": "date-time"
+		},
+		"due_date": {
+            "type": ["null", "string"],
+            "format": "date-time"
+		},
+		"notes": {
+            "type": ["null", "string"]
+		},
+		"status": {
+            "type": ["null", "string"]
+		},
+		
+		"payments": {
+            "type": ["null","array"],
+    		"items": {
+    			"type": ["null","object"],
+				"properties": {
+					"id": {
+						"type":["null","integer"]
+					},
+					"invoice_id": {
+						"type":["null","integer"]
+					},
+					"notes": {
+						"type":["null","string"]
+					},
+					"amount": {
+						"type":["null","number"]
+					},
+					"date": {
+						"type": ["null", "string"],
+						"format": "date-time"
+					},
+					"created_by": {
+						"type": ["null", "integer"]
+					},
+					"updated_by": {
+						"type": ["null", "integer"]
+					},
+					"created_at": {
+						"type": ["null", "string"],
+						"format": "date-time"
+					},
+					"updated_at": {
+						"type": ["null", "string"],
+						"format": "date-time"
+					}
+				}
+    		}
+        },
+        "entries": {
+            "type": ["null","array"],
+    		"items": {
+    			"type": ["null","object"],
+				"properties": {
+					"id": {
+						"type":["null","integer"]
+					},
+					"invoice_id": {
+						"type":["null","integer"]
+					},
+					"name": {
+						"type":["null","string"]
+					},
+					"quantity": {
+						"type":["null","integer"]
+					},
+					"unit_price": {
+						"type":["null","number"]
+					},
+					"discount": {
+						"type":["null","number"]
+					},
+					"tax": {
+						"type":["null","number"]
+					},
+					"description": {
+						"type":["null","string"]
+					},
+					"created_by": {
+						"type": ["null", "integer"]
+					},
+					"updated_by": {
+						"type": ["null", "integer"]
+					},
+					"created_at": {
+						"type": ["null", "string"],
+						"format": "date-time"
+					},
+					"updated_at": {
+						"type": ["null", "string"],
+						"format": "date-time"
+					}
+				}
+    		}
+        },
+		"created_by": {
+            "type": ["null", "integer"]
+		},
+		"updated_by": {
+            "type": ["null", "integer"]
+		},
+		"created_at": {
+            "type": ["null", "string"],
+            "format": "date-time"
+		},
+		"updated_at": {
+            "type": ["null", "string"],
+            "format": "date-time"
+		}
+		
+    }
+}
