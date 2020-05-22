@@ -10,3 +10,7 @@ This tap:
 - Incrementally pulls data based on the input state
 
 - To install, simply edit config in config_sample.json
+
+---
+
+Copyright &copy; 2020 Stitch
