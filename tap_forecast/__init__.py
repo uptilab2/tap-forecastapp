@@ -22,6 +22,7 @@ CONFIG = {}
 STATE = {}
 AUTH = {}
 
+PROJECT_SUB_STREAM = ['expense_items', 'invoices', 'milestones', 'project_team', 'sprints', 'workflow_columns', 'project_financials']
 
 def get_abs_path(path):
     return os.path.join(os.path.dirname(os.path.realpath(__file__)),
@@ -275,14 +276,18 @@ def sync_project(  # pylint: disable=too-many-arguments
     for_each_handler=None,
     map_handler=None,
     object_to_id=None,
+    is_selected=False,
+    selected_sub_stream=[],
     ):
     schema = load_schema(schema_name)
-    bookmark_property = 'updated_at'
-    LOGGER.info('Loading ' + schema_name)
-    singer.write_schema(schema_name, schema, ['id'],
-                        bookmark_properties=[bookmark_property])
+    if is_selected:
+        bookmark_property = 'updated_at'
+        LOGGER.info('Loading ' + schema_name)
+        
+        singer.write_schema(schema_name, schema, ['id'],
+                            bookmark_properties=[bookmark_property])
 
-    start = get_start(schema_name)
+        start = get_start(schema_name)
 
     with Transformer() as transformer:
         url = get_url(endpoint or schema_name)
@@ -297,42 +302,49 @@ def sync_project(  # pylint: disable=too-many-arguments
             time_extracted = utils.now()
 
             # find related
+            if 'expense_items' in selected_sub_stream:
+                sync_endpoint('expense_items', BASE_API_URL + 'projects/'
+                            + str(row['id']) + '/expense_items', None,
+                            'project_id', str(row['id']))
+            if 'invoices' in selected_sub_stream:
+                sync_endpoint('invoices', BASE_API_URL + 'projects/'
+                            + str(row['id']) + '/invoices', None,
+                            'project_id', str(row['id']))
+            
+            if 'milestones' in selected_sub_stream:
+                sync_endpoint('milestones', BASE_API_URL + 'projects/'
+                            + str(row['id']) + '/milestones', None,
+                            'project_id', str(row['id']))
+            if 'project_team' in selected_sub_stream:
+                sync_endpoint(
+                    'project_team',
+                    BASE_API_URL + 'projects/' + str(row['id']) + '/team',
+                    None,
+                    'project_id',
+                    str(row['id']),
+                    ['person_id', 'project_id'],
+                    )
+            if 'sprints' in selected_sub_stream:
+                sync_endpoint('sprints', BASE_API_URL + 'projects/'
+                            + str(row['id']) + '/sprints', None,
+                            'project_id', str(row['id']))
+            if 'workflow_columns' in selected_sub_stream:
+                sync_endpoint('workflow_columns', BASE_API_URL + 'projects/'
+                            + str(row['id']) + '/workflow_columns',
+                            None, 'project_id', str(row['id']))
+            if 'project_financials' in selected_sub_stream:
+                sync_endpoint(
+                    'project_financials',
+                    BASE_API_URL + 'projects/' + str(row['id'])
+                        + '/financials',
+                    None,
+                    None,
+                    None,
+                    ['project_id'],
+                    )
 
-            sync_endpoint('expense_items', BASE_API_URL + 'projects/'
-                          + str(row['id']) + '/expense_items', None,
-                          'project_id', str(row['id']))
-            sync_endpoint('invoices', BASE_API_URL + 'projects/'
-                          + str(row['id']) + '/invoices', None,
-                          'project_id', str(row['id']))
-            sync_endpoint('milestones', BASE_API_URL + 'projects/'
-                          + str(row['id']) + '/milestones', None,
-                          'project_id', str(row['id']))
-            sync_endpoint(
-                'project_team',
-                BASE_API_URL + 'projects/' + str(row['id']) + '/team',
-                None,
-                'project_id',
-                str(row['id']),
-                ['person_id', 'project_id'],
-                )
-            sync_endpoint('sprints', BASE_API_URL + 'projects/'
-                          + str(row['id']) + '/sprints', None,
-                          'project_id', str(row['id']))
-            sync_endpoint('workflow_columns', BASE_API_URL + 'projects/'
-                           + str(row['id']) + '/workflow_columns',
-                          None, 'project_id', str(row['id']))
-            sync_endpoint(
-                'project_financials',
-                BASE_API_URL + 'projects/' + str(row['id'])
-                    + '/financials',
-                None,
-                None,
-                None,
-                ['project_id'],
-                )
-
-            if bookmark_property in item and item[bookmark_property] \
-                >= start:
+            if is_selected and (bookmark_property in item and item[bookmark_property] \
+                >= start):
                 singer.write_record(schema_name, item,
                                     time_extracted=time_extracted)
 
@@ -407,31 +419,49 @@ def sync_rate_cards(  # pylint: disable=too-many-arguments
     singer.write_state(STATE)
 
 
+sync_func = {
+    'allocations': sync_endpoint,
+    'clients': sync_endpoint,
+    'connected_projects': sync_endpoint,
+    "holiday_calendar_entries": sync_endpoint,
+    "holiday_calendars": sync_endpoint,
+    "labels": sync_endpoint,
+    "non_project_time": sync_endpoint,
+    "persons": sync_endpoint,
+    "person_cost_periods": sync_endpoint,
+    "rate_cards": sync_rate_cards,
+    "roles": sync_endpoint,
+}
+
 def sync(config, state, catalog):
     """ Sync data from tap source """
 
     # Loop over selected streams in catalog
 
     LOGGER.info('Starting sync')
+    selected_streams = catalog.get_selected_streams(state)
+    # get selected project sub stream
+    selected_project_sub_stream = []
+    sync_project_stream = False
+    # sync project first i guess
 
-    sync_project("projects")
-    sync_endpoint("allocations")
+    for catalog_entry in selected_streams:
+        if catalog_entry.stream == 'projects':
+            sync_project_stream = True
+            continue
+        if catalog_entry.stream in PROJECT_SUB_STREAM:
+            selected_project_sub_stream.append(catalog_entry.stream)
+        elif catalog_entry.stream == 'allocation_perday':
+            sync_allocations('allocations_perday', BASE_API_URL + 'allocations')
+        elif catalog_entry.stream == 'tasks':
+            sync_endpoint("tasks","https://api.forecast.it/api/v2/tasks",None,None,None,None,None,'updated_after')
+        elif catalog_entry.stream == 'time_registrations':
+            sync_endpoint("time_registrations","https://api.forecast.it/api/v3/time_registrations",None,None,None,None,None,'updated_after')
+        else:
+            sync_func[catalog_entry.stream]
 
-    sync_allocations('allocations_perday', BASE_API_URL + 'allocations')
-
-    sync_endpoint("tasks","https://api.forecast.it/api/v2/tasks",None,None,None,None,None,'updated_after')
-    sync_endpoint("clients")
-    sync_endpoint("connected_projects")
-    sync_endpoint("holiday_calendar_entries")
-    sync_endpoint("holiday_calendars")
-    sync_endpoint("labels")
-    sync_endpoint("non_project_time")
-    sync_endpoint("persons")
-    sync_endpoint("person_cost_periods")
-    sync_rate_cards("rate_cards")
-     #sync_endpoint("repeating_tasks")
-    sync_endpoint("roles")
-    sync_endpoint("time_registrations","https://api.forecast.it/api/v3/time_registrations",None,None,None,None,None,'updated_after')
+    if sync_project_stream or selected_project_sub_stream:
+        sync_project("projects", is_selected=sync_project_stream, selected_sub_stream=selected_project_sub_stream)
 
     return
 
