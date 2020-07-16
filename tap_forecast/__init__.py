@@ -62,7 +62,7 @@ def discover():
             table=None,
             row_count=None,
             stream_alias=None,
-            replication_method=None,
+            replication_method='FULL_TABLE',
             ))
 
     return Catalog(streams)
@@ -451,7 +451,7 @@ def sync(config, state, catalog):
             continue
         if catalog_entry.stream in PROJECT_SUB_STREAM:
             selected_project_sub_stream.append(catalog_entry.stream)
-        elif catalog_entry.stream == 'allocation_perday':
+        elif catalog_entry.stream == 'allocations_perday':
             sync_allocations('allocations_perday', BASE_API_URL + 'allocations')
         elif catalog_entry.stream == 'tasks':
             sync_endpoint("tasks","https://api.forecast.it/api/v2/tasks",None,None,None,None,None,'updated_after')
