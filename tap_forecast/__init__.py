@@ -89,7 +89,7 @@ def load_schema(entity):
 
 def get_start(key):
     if key not in STATE:
-        STATE[key] = CONFIG['start_date']
+        STATE[key] = datetime.datetime.strptime(CONFIG['start_date'], '%Y-%m-%dT%H:%M:%SZ').strftime('%Y-%m-%dT%H:%M:%S.%fZ')
 
     return STATE[key]
 
@@ -114,7 +114,7 @@ def sync_endpoint(
 
     start = get_start(schema_name)
     start_dt = datetime.datetime.strptime(start,
-                    '%Y-%m-%dT%H:%M:%SZ')
+                    '%Y-%m-%dT%H:%M:%S.%fZ')
     updated_since = start_dt.strftime("%Y%m%dT%H%M%S")
     LOGGER.info('updated_since ' + updated_since)
     with Transformer() as transformer:
@@ -148,7 +148,7 @@ def sync_endpoint(
                     datetime.datetime.now().strftime('%Y-%m-%d') \
                     + 'T00:00:00.00Z'
 			
-            if  datetime.datetime.strptime(item[bookmark_property],'%Y-%m-%dT%H:%M:%SZ') >= start_dt:
+            if  datetime.datetime.strptime(item[bookmark_property],'%Y-%m-%dT%H:%M:%S.%fZ') >= start_dt:
                 singer.write_record(schema_name, item,
                                     time_extracted=time_extracted)
 
