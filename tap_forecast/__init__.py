@@ -458,7 +458,7 @@ def sync(config, state, catalog):
         elif catalog_entry.stream == 'time_registrations':
             sync_endpoint("time_registrations","https://api.forecast.it/api/v3/time_registrations",None,None,None,None,None,'updated_after')
         else:
-            sync_func[catalog_entry.stream]
+            sync_func[catalog_entry.stream](catalog_entry.stream)
 
     if sync_project_stream or selected_project_sub_stream:
         sync_project("projects", is_selected=sync_project_stream, selected_sub_stream=selected_project_sub_stream)
