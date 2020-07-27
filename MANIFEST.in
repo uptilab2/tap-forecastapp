@@ -1,2 +1,2 @@
 include LICENSE
-include tap_forecast/schemas/*.json
+include tap_forecastapp/schemas/*.json
