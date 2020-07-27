@@ -15,11 +15,11 @@ setup(
     ],
     entry_points="""
     [console_scripts]
-    tap-forecast-v2=tap_forecast:main
+    tap-forecast-v2=tap_forecastapp:main
     """,
-    packages=["tap_forecast"],
+    packages=["tap_forecastapp"],
     package_data = {
-        "schemas": ["tap_forecast/schemas/*.json"]
+        "schemas": ["tap_forecastapp/schemas/*.json"]
     },
     include_package_data=True,
 )
